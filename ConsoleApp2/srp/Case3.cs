@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,17 +14,23 @@ namespace ConsoleApp2.srp
             public int OrderId;
             public List<string> Items = new List<string>();
 
-            public void AddItem(string item)
+            public Order(string item)
             {
                 Items.Add(item);
-            }
+            } 
 
-            public void SaveToDatabase()
+        }
+        class SendOrder
+        {
+            public SendOrder()
             {
-                Console.WriteLine("Order saved to database!");
+                Console.WriteLine("Order confirmation email sent!");
             }
+        }
 
-            public void PrintOrder()
+        class PrinterOrder
+        {
+            public PrinterOrder(List<string> Items, int OrderId)
             {
                 Console.WriteLine("Order #" + OrderId);
                 foreach (var item in Items)
@@ -31,23 +38,28 @@ namespace ConsoleApp2.srp
                     Console.WriteLine(" - " + item);
                 }
             }
+        }
 
-            public void SendOrderConfirmation()
+        class SaveToDatabase
+        {
+            public SaveToDatabase()
             {
-                Console.WriteLine("Order confirmation email sent!");
+                Console.WriteLine("Order saved to Database!");
             }
         }
+
+
 
         public class App
         {
             static void Main()
             {
-                Order order = new Order();
-                order.AddItem("Laptop");
-                order.PrintOrder();
-                order.SaveToDatabase();
-                order.SendOrderConfirmation();
+                Order order = new Order("Laptop"); 
+
+                PrinterOrder printer = new PrinterOrder(order.Items, order.OrderId);
+                SaveToDatabase saver = new SaveToDatabase();
+                SendOrder sender = new SendOrder(); 
             }
         }
     }
-}
+} 
