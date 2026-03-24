@@ -11,12 +11,12 @@ namespace ConsoleApp2.srp
     {
         class Order
         {
-            public int OrderId;
-            public List<string> Items = new List<string>();
+            public int orderId;
+            public List<string> items = new List<string>();
 
             public Order(string item)
             {
-                Items.Add(item);
+                items.Add(item);
             } 
 
         }
@@ -30,10 +30,10 @@ namespace ConsoleApp2.srp
 
         class PrinterOrder
         {
-            public PrinterOrder(List<string> Items, int OrderId)
+            public PrinterOrder(List<string> items, int orderId)
             {
-                Console.WriteLine("Order #" + OrderId);
-                foreach (var item in Items)
+                Console.WriteLine("Order #" + orderId);
+                foreach (var item in items)
                 {
                     Console.WriteLine(" - " + item);
                 }
@@ -56,7 +56,7 @@ namespace ConsoleApp2.srp
             {
                 Order order = new Order("Laptop"); 
 
-                PrinterOrder printer = new PrinterOrder(order.Items, order.OrderId);
+                PrinterOrder printer = new PrinterOrder(order.items, order.orderId);
                 SaveToDatabase saver = new SaveToDatabase();
                 SendOrder sender = new SendOrder(); 
             }
