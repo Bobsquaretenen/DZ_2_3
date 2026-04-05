@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;//ghg
+using System.Threading.Tasks;
 
 namespace ConsoleApp2.srp
 {
@@ -11,8 +11,8 @@ namespace ConsoleApp2.srp
     {
         class Order
         {
-            public int orderId;
-            public List<string> items = new List<string>();
+            public int orderId { get; set;  }
+            public List<string> items { get; } = new List<string>();
 
             public Order(string item)
             {
@@ -20,17 +20,17 @@ namespace ConsoleApp2.srp
             } 
 
         }
-        class SendOrder
+        public class SendOrderService
         {
-            public SendOrder()
+            public void SendOrder()
             {
                 Console.WriteLine("Order confirmation email sent!");
             }
         }
 
-        class PrinterOrder
+        public class PrinterOrderService
         {
-            public PrinterOrder(List<string> items, int orderId)
+            public void PrintOrder(List<string> items, int orderId)
             {
                 Console.WriteLine("Order #" + orderId);
                 foreach (var item in items)
@@ -40,9 +40,9 @@ namespace ConsoleApp2.srp
             }
         }
 
-        class SaveToDatabase
+        public class SaveToDatabaseService
         {
-            public SaveToDatabase()
+            public void SaveToDatabase()
             {
                 Console.WriteLine("Order saved to Database!");
             }
@@ -54,12 +54,17 @@ namespace ConsoleApp2.srp
         {
             static void Main()
             {
-                Order order = new Order("Laptop"); 
+                Order order = new Order("Laptop");
 
-                PrinterOrder printer = new PrinterOrder(order.items, order.orderId);
-                SaveToDatabase saver = new SaveToDatabase();
-                SendOrder sender = new SendOrder(); 
+
+                PrinterOrderService printer = new PrinterOrderService(); 
+                SaveToDatabaseService saver = new SaveToDatabaseService();
+                SendOrderService sender = new SendOrderService(); 
+
+                printer.PrintOrder(order.items, order.orderId);
+                saver.SaveToDatabase();
+                sender.SendOrder(); 
             }
         }
     }
-} 
+}
